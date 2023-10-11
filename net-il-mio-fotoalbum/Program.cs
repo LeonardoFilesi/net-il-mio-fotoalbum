@@ -8,12 +8,13 @@ namespace net_il_mio_fotoalbum
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-                        var connectionString = builder.Configuration.GetConnectionString("ImageContextConnection") ?? throw new InvalidOperationException("Connection string 'ImageContextConnection' not found.");
 
-                                    builder.Services.AddDbContext<ImageContext>(options =>
-                options.UseSqlServer(connectionString));
 
-                                                builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            // CODICE RIMOSSO COME DA ISTRUZIONI SLIDE PER AUTHENTICATION
+            //var connectionString = builder.Configuration.GetConnectionString("ImageContextConnection") ?? throw new InvalidOperationException("Connection string 'ImageContextConnection' not found.");
+            //builder.Services.AddDbContext<ImageContext>(options =>options.UseSqlServer(connectionString));
+
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ImageContext>();
 
             // Add services to the container.
