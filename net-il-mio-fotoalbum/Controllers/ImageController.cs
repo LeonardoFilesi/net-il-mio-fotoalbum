@@ -19,13 +19,13 @@ namespace net_il_mio_fotoalbum.Controllers
 
 
 
-
-        public IActionResult Index()
-        {
-            List<Image> images = _myDatabase.Images.Include(image => image.Categories).ToList<Image>();
-
-            return View("Index", images);
-        }
+        // METODO copiato in HomeController
+        // public IActionResult Index()
+        // {
+        //    List<Image> images = _myDatabase.Images.Include(image => image.Categories).ToList<Image>();
+        //
+        //    return View("Index", images);
+        // }
 
 
 
@@ -165,7 +165,7 @@ namespace net_il_mio_fotoalbum.Controllers
                         Text = category.Name,
                     });
                 }
-                data.Category = allCategoriesSelectList; 
+                data.Category = allCategoriesSelectList;
 
                 return View("Update", data);
             }

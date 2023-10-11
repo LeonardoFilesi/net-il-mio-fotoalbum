@@ -1,8 +1,211 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
+    bool isFirstItem = true; // PER IL CAROSELLO Variabile di stato per tracciare il primo elemento
 }
+@model List<Image>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+
+    <div class="row">
+        <div class="col-12">
+            <h1>Lista delle foto</h1>
+            <div>
+                <input id="js_search_box" type="text" class="form-control my-3" placeholder="Cerca per titolo...">
+            </div>
+        </div>
+    </div>
+
+    <div id="loading-spinner" class="row">
+        <div class="col-12">
+            <div class="spinner-border" role="status"></div>
+            <span class="visually-hidden">Sto cercando le foto... </span>
+        </div>
+    </div>
+
+    <div id="row-no-images" class="row d-none">
+        <div class="col-12">
+            <h1>Nessuna Pizza trovata</h1>
+        </div>
+    </div>
+
+
+
+    <div id="list-of-images" class="row d-none">
+        <div class="col-12">
+        </div>
+    </div>
+
 </div>
+
+<div class="d-flex flex-column" style="height:100%;">
+    <main>
+        <div class="d-flex container-fluid">
+            <div class="container" style="border-radius: 15px; height: 100%; background-color: #870000; padding: 50px 0 50px 0; justify-content: space-evenly">
+
+
+                <!--CAROSELLO-->
+                <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false" style="height: 500px; margin-bottom:20px">
+                    <div class="carousel-indicators">
+
+                        <!--   QUESTE 3 RIGHE DI CODICE BLOCCAVANO I BOTTONI
+                         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        -->
+
+                    </div>
+                    <div class="carousel-inner">
+                        @foreach (Image image in Model)
+                        {
+                            <div class="carousel-item @(isFirstItem ? "active" : "")">
+                                <img src="@image.Img" class="d-block w-100" alt="..." style="height: 500px;">
+                                <div class="carousel-caption d-none d-md-block" style="border-radius: 10px; background-color:rgb(16 21 31 / 62%);">
+                                    <h5>Image: @image.Title</h5>
+                                    @if (image.Categories == null)
+                                    {
+                                        <p>Nessuna categoria selezionata</p>
+                                    }
+                                    else
+                                    {
+                                        foreach (Category category in image.Categories)
+                                        {
+                                            <p>@category?.Name</p>
+                                        }
+                                    }
+                                    <p>@image.Description</p>
+                                </div>
+                            </div>
+                            isFirstItem = false;
+                        }
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+
+
+
+                <!-- CARTE -->
+                <div class="d-flex flex-wrap" style="justify-content: space-evenly;">
+                    @foreach (Image image in Model)
+                    {
+                        <div class="card" style="width: 18rem; margin-bottom:20px;">
+                            <img src="@image.Img" class="card-img-top" alt="..." style="height:180px">
+                            <div class="card-body">
+                                <h5 class="card-title">@image.Title</h5>
+                                <p class="card-text">@image.Description</p>
+                            </div>
+                            <hr>
+                            <div class="card-body">
+                                <ul>
+                                    @if (image.Categories == null)
+                                    {
+                                        <li><p>Nessuna categoria selezionata</p></li>
+                                    }
+                                    else
+                                    {
+                                        foreach (Category category in image.Categories)
+                                        {
+                                            <li><p>@category?.Name</p></li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+
+
+
+                <!-- TABELLA -->
+                <div class="d-flex" style="justify-content: center">
+                    <h2 style="color: white">Resoconto delle Foto presenti in Galleria</h2>
+                </div>
+
+                <div class="p-3">
+                    <table class="table" style="color: white">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Titolo:</th>
+                                <th scope="col">Descrizione:</th>
+                                <th scope="col">Categoria:</th>
+                                <th scope="col">Azioni:</th>
+                                <th scope="col">Elimina:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Image image in Model)
+                            {
+                                <tr>
+                                    <th scope="row">@image.Id</th>
+                                    <td><p>@image.Title</p></td>
+                                    <td><p>@image.Description</p></td>
+                                    <td>
+                                        @if (image.Categories != null && image.Categories.Count > 0)
+                                        {
+                                            <ul>
+                                                @foreach (Category category in image.Categories)
+                                                {
+                                                    <li>@category.Name</li>
+                                                }
+                                            </ul>
+                                        }
+                                        else
+                                        {
+                                            <span>Non è stata ancora compilata la lista delle categorie</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-danger" href="@Url.Action("Details", "Image", new { id = image.Id })" title="image details">DETAILS</a>
+                                        <hr>
+                                        <a class="btn btn-warning" href="@Url.Action("Update", "Image", new { id = image.Id })" title="image details">AGGIORNA</a>
+
+                                    </td>
+                                    <td>
+                                        <form asp-controller="Image" asp-action="Delete" asp-route-id="@image.Id" method="post">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</div>
+
+<!--SCRIPT CAROSELLO-->
+<script>
+    var carousel = document.getElementById('carouselExampleCaptions');
+    var indicators = carousel.querySelector('.carousel-indicators');
+    var items = carousel.querySelectorAll('.carousel-item');
+
+    items.forEach(function (item, index) {
+        var indicator = document.createElement('button');
+        indicator.setAttribute('type', 'button');
+        indicator.setAttribute('data-bs-target', '#carouselExampleCaptions');
+        indicator.setAttribute('data-bs-slide-to', index.toString());
+        if (index === 0) {
+            indicator.classList.add('active');
+        }
+        indicators.appendChild(indicator);
+
+        item.addEventListener('mouseenter', function () {
+            indicators.querySelector('.active').classList.remove('active');
+            indicator.classList.add('active');
+        });
+    });
+</script>

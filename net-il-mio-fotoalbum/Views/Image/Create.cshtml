@@ -1,0 +1,54 @@
+﻿﻿@{
+    Layout = "_Layout";
+}
+@model ImageFormModel
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-12">
+            <h1>Crea una nuova Pizza da aggiungere</h1>
+        </div>
+
+        <form asp-controller="Pizza" asp-action="Create" method="post">
+
+            @Html.AntiForgeryToken()         <!--DA METTERE SEMPRE PER LA SICUREZZA DEL CODICE-->
+
+            <!--TITOLO-->
+            <div class="mb-3">
+                <strong>Title:</strong>
+                <input type="text" class="form-control" asp-for="Image.Title">
+                <span asp-validation-for="Image.Title" class="text-danger"></span>
+            </div>
+
+            <!--DESCRIZIONE-->
+            <div class="mb-3">
+                <strong>Descrizione:</strong>
+                <input type="text" class="form-control" asp-for="Image.Description">
+                <span asp-validation-for="Image.Description" class="text-danger"></span>
+            </div>
+
+            <!-- SELECT MULTIPLA PER LE CATEGORIE -->
+            <div class="mb-3">
+                <strong>Seleziona Tags:</strong>
+                <select asp-for="SelectedCategoryId"
+                        multiple="multiple"
+                        size="10"
+                        class="form-control mb-2 mr-sm-2 ml-sm-3 leftList"
+                        asp-items="@Model.Category">
+                </select>
+            </div>
+
+            <!--IMMAGINE-->
+            <div class="mb-3">
+                <strong>URL Immagine:</strong>
+                <input type="text" class="form-control" asp-for="Image.Img">
+                <span asp-validation-for="Image.Img" class="text-danger"></span>
+            </div>
+
+            <!-- FINALMENTE VREA E AGGIUNGI -->
+            <button type="submit" class="btn btn-primary">Aggiungi nuova Pizza</button>
+
+        </form>
+    </div>
+</div>

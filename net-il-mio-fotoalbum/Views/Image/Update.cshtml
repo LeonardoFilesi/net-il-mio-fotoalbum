@@ -1,0 +1,47 @@
+﻿﻿@{
+    Layout = "_Layout";
+}
+@model ImageFormModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>Aggiorna una Foto esistente</h1>
+        </div>
+        <form asp-controller="Pizza" asp-action="Update" asp-route-id="@Model.Image.Id" method="post">
+
+            @Html.AntiForgeryToken()         <!--DA METTERE SEMPRE PER LA SICUREZZA DEL CODICE-->
+
+            <div class="mb-3">
+                <strong>Titolo:</strong>
+                <input type="text" class="form-control" asp-for="Image.Title">
+                <span asp-validation-for="Image.Title" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <strong>Descrizione:</strong>
+                <input type="text" class="form-control" asp-for="Image.Description">
+                <span asp-validation-for="Image.Description" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <strong>Ingredienti:</strong>
+                <select asp-for="SelectedCategoryId"
+                        multiple="multiple"
+                        size="10"
+                        class="form-control mb-2 mr-sm-2 ml-sm-3 leftList"
+                        asp-items="@Model.Category">
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <strong>URL Immagine:</strong>
+                <input type="text" class="form-control" asp-for="Image.Img">
+                <span asp-validation-for="Image.Img" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Aggiorna la Foto</button>
+
+        </form>
+    </div>
+</div>
