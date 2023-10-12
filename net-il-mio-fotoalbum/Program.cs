@@ -54,9 +54,12 @@ namespace net_il_mio_fotoalbum
 
             app.UseAuthorization();
 
+
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.MapRazorPages(); // AGGIUNGERE per il routing di bottoni e link Razor
 
             app.Run();
         }
