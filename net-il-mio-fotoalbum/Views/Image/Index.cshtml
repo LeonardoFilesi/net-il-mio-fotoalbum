@@ -114,13 +114,76 @@
                                             <li><p>@category?.Name</p></li>
                                         }
                                     }
-                                    <li>
-                                        <a class="btn btn-danger" href="@Url.Action("Details", "Image", new { id = image.Id })" title="image details">DETAILS</a>
-                                    </li>
                                 </ul>
                             </div>
                         </div>
                     }
+                </div>
+
+
+
+
+                <!-- TABELLA -->
+                <div class="d-flex" style="justify-content: center">
+                    <h2 style="color: white">Resoconto delle Foto presenti in Galleria</h2>
+                </div>
+
+                <div class=" text-center mt-4 mb-4 W">
+                    <a class=" btn btn-success " href="@Url.Action("Create", "Image")">Crea nuova Foto</a>
+                </div>
+
+                <div class="p-3">
+                    <table class="table" style="color: white">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Titolo:</th>
+                                <th scope="col">Descrizione:</th>
+                                <th scope="col">Categoria:</th>
+                                <th scope="col">Azioni:</th>
+                                <th scope="col">Elimina:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Image image in Model)
+                            {
+                                <tr>
+                                    <th scope="row">@image.Id</th>
+                                    <td><p>@image.Title</p></td>
+                                    <td><p>@image.Description</p></td>
+                                    <td>
+                                        @if (image.Categories != null && image.Categories.Count > 0)
+                                        {
+                                            <ul>
+                                                @foreach (Category category in image.Categories)
+                                                {
+                                                    <li>@category.Name</li>
+                                                }
+                                            </ul>
+                                        }
+                                        else
+                                        {
+                                            <span>Non è stata ancora compilata la lista delle categorie</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-danger" href="@Url.Action("Details", "Image", new { id = image.Id })" title="image details">DETAILS</a>
+                                        <hr>
+                                        <a class="btn btn-warning" href="@Url.Action("Update", "Image", new { id = image.Id })" title="image update">AGGIORNA</a>
+
+                                    </td>
+                                    <td>
+                                        <form asp-controller="Image" asp-action="Delete" asp-route-id="@image.Id" method="post">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

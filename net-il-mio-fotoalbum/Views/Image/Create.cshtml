@@ -7,10 +7,10 @@
     <div class="row">
 
         <div class="col-12">
-            <h1>Crea una nuova Pizza da aggiungere</h1>
+            <h1>Crea una nuova Foto da aggiungere</h1>
         </div>
 
-        <form asp-controller="Pizza" asp-action="Create" method="post">
+        <form asp-controller="Image" asp-action="Create" method="post">
 
             @Html.AntiForgeryToken()         <!--DA METTERE SEMPRE PER LA SICUREZZA DEL CODICE-->
 
@@ -47,7 +47,7 @@
             </div>
 
             <!-- FINALMENTE VREA E AGGIUNGI -->
-            <button type="submit" class="btn btn-primary">Aggiungi nuova Pizza</button>
+            <button type="submit" class="btn btn-primary">Aggiungi nuova Foto</button>
 
         </form>
     </div>

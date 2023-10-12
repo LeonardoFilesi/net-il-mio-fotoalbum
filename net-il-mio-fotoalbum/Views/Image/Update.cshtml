@@ -8,7 +8,7 @@
         <div class="col-12">
             <h1>Aggiorna una Foto esistente</h1>
         </div>
-        <form asp-controller="Pizza" asp-action="Update" asp-route-id="@Model.Image.Id" method="post">
+        <form asp-controller="Image" asp-action="Update" asp-route-id="@Model.Image.Id" method="post">
 
             @Html.AntiForgeryToken()         <!--DA METTERE SEMPRE PER LA SICUREZZA DEL CODICE-->
 

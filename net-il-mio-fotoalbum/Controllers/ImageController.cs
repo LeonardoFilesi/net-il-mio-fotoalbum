@@ -20,12 +20,12 @@ namespace net_il_mio_fotoalbum.Controllers
 
 
         // METODO copiato in HomeController
-        // public IActionResult Index()
-        // {
-        //    List<Image> images = _myDatabase.Images.Include(image => image.Categories).ToList<Image>();
-        //
-        //    return View("Index", images);
-        // }
+         public IActionResult Index()
+            {
+                List<Image> images = _myDatabase.Images.Include(image => image.Categories).ToList<Image>();
+        
+                return View("Index", images);
+            }
 
 
 
