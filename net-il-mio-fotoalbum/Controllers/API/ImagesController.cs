@@ -24,7 +24,7 @@ namespace net_il_mio_fotoalbum.Controllers.API
         {
             using (ImageContext db = new ImageContext())
             {
-                List<Image> images = db.Images.Include(image => image.ategories).ToList();
+                List<Image> images = db.Images.Include(image => image.Categories).ToList();
                 return Ok(images);
             }
         }
