@@ -14,7 +14,7 @@ html {
 }
 
 
-
+/* FOOTER */
 footer {
     display:flex;
 }
@@ -24,14 +24,16 @@ footer .container-fluid {
     color: white;
     padding: 5%;
 }
-    footer ul {
-        justify-content: center;
-        flex-direction: column;
-    }
+footer ul {
+    justify-content: center;
+    flex-direction: column;
+}
 
 
 
 
+
+/* HEADER */
 header {
     background-color: #bd3f57;
     color: white;
@@ -47,3 +49,81 @@ header .nav-link {
 
 
 
+/* CONDIVISI ADMIN-USER (Image, Home) */
+.ms_PageIndex {
+    display:flex;
+    flex-direction:column;
+    height:100%;
+}
+.ms_PageContainer {
+    border-radius: 15px;
+    height: 100%;
+    background-color: #01252b;
+    padding: 50px 10px;
+    justify-content: space-evenly
+}
+.ms_PageTitle {
+    text-align:center;
+    color:white;
+    padding-bottom:5%;
+}
+/* CAROSELLO */
+.carousel {
+    height: 500px;
+    margin-bottom: 10%;
+}
+.ms_carouselImg {
+    height: 500px;
+    width:100%;
+}
+.carousel-caption {
+    border-radius: 10px;
+    background-color: rgb(16 21 31 / 62%);
+}
+.ms_cards {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-evenly;
+    margin-bottom:10%;
+}
+.card {
+    height: 450px;
+}
+.card-img-top {
+    height: 50%;
+}
+/* TABELLA */
+.ms_table {
+    display: flex;
+    justify-content: center;
+}
+.ms_table h2 {
+    color: white;
+}
+.table {
+    color: white;
+}
+#loading-spinner {
+    color: white;
+}
+
+
+
+/* DETAILS */
+.ms_Details {
+    color: white;
+    border-radius: 15px;
+    background-color: #01252b;
+    padding: 50px 10px;
+    justify-content: space-evenly
+}
+.ms_DetailsTitle {
+    margin: 0 auto;
+    color:white;
+}
+.ms_DetailsTitle h1 {
+    text-align:center;
+}
+.ms_DetailsItem {
+    margin:0 auto;
+}

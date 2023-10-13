@@ -4,30 +4,34 @@
 }
 @model List<Image>
 
-<div class="d-flex flex-column" style="height:100%;">
+<div class="ms_PageIndex">
     <main>
-        <div class="d-flex container-fluid">
-            <div class="container" style="border-radius: 15px; height: 100%; background-color: #01252b; padding: 50px 0 50px 0; justify-content: space-evenly">
+            <div class="ms_PageContainer container">
 
+                <h1 class="ms_PageTitle"><strong>Galleria Leo F.</strong></h1>
 
                 <!--CAROSELLO-->
-                <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false" style="height: 500px; margin-bottom:20px">
-                    <div class="carousel-indicators">
+                <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
 
-                        <!--   QUESTE 3 RIGHE DI CODICE BLOCCAVANO I BOTTONI
+
+                    <!--   QUESTE 3 RIGHE DI CODICE BLOCCAVANO I BOTTONI
+                    <div class="carousel-indicators">
                          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
                          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                        -->
+                    </div> -->
 
-                    </div>
                     <div class="carousel-inner">
                         @foreach (Image image in Model)
                         {
                             <div class="carousel-item @(isFirstItem ? "active" : "")">
-                                <img src="@image.ImageSrc" class="d-block w-100" alt="..." style="height: 500px;">
-                                <div class="carousel-caption d-none d-md-block" style="border-radius: 10px; background-color:rgb(16 21 31 / 62%);">
+
+                            <img src="@image.ImageSrc" class="ms_carouselImg d-block w-100" alt="...">
+
+                                <div class="carousel-caption d-none d-md-block">
+
                                     <h5>Image: @image.Title</h5>
+
                                     @if (image.Categories == null)
                                     {
                                         <p>Nessuna categoria selezionata</p>
@@ -67,7 +71,7 @@
                     </div>
 
                     <div id="loading-spinner" class="row">
-                        <div class="col-12" style="color:white;">
+                        <div class="col-12">
                             <div class="spinner-border" role="status"></div>
                             <span class="visually-hidden">Sto cercando le foto... </span>
                         </div>
@@ -108,9 +112,6 @@
 
                 </div>
             </div>
-
-
-        </div>
     </main>
 
 </div>

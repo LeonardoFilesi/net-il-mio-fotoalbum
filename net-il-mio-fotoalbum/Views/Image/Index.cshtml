@@ -5,14 +5,13 @@
 @model List<Image>
 
 
-<div class="d-flex flex-column" style="height:100%;">
+<div class="ms_PageIndex">
     <main>
-        <div class="d-flex container-fluid">
-            <div class="container" style="border-radius: 15px; height: 100%; background-color: #01252b; padding: 50px 0 50px 0; justify-content: space-evenly">
+            <div class="ms_PageContainer container">
 
-                <h1 class="text-center text-white"><strong>Galleria</strong></h1>
+                <h1 class="ms_PageTitle"><strong>La Tua Galleria</strong></h1>
                 <!--CAROSELLO-->
-                <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false" style="height: 500px; margin-bottom:20px">
+                <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
                     <div class="carousel-indicators">
 
                         <!--   QUESTE 3 RIGHE DI CODICE BLOCCAVANO I BOTTONI
@@ -26,9 +25,13 @@
                         @foreach (Image image in Model)
                         {
                             <div class="carousel-item @(isFirstItem ? "active" : "")">
-                                <img src="@image.ImageSrc" class="d-block w-100" alt="..." style="height: 500px;">
-                                <div class="carousel-caption d-none d-md-block" style="border-radius: 10px; background-color:rgb(16 21 31 / 62%);">
+
+                                <img src="@image.ImageSrc" class="ms_carouselImg d-block" alt="...">
+
+                                <div class="carousel-caption d-none d-md-block">
+
                                     <h5>Image: @image.Title</h5>
+
                                     @if (image.Categories == null)
                                     {
                                         <p>Nessuna categoria selezionata</p>
@@ -59,12 +62,12 @@
 
 
                 <!-- CARTE -->
-                <div class="d-flex flex-wrap col-12" style="justify-content: space-evenly;">
+                <div class="ms_cards col-12">
                     @foreach (Image image in Model)
                     {
                         <div class="col-12 col-md-4 p-2">
-                            <div class="card text-center" style="height:450px">
-                                <img src="@image.ImageSrc" class="card-img-top" style="height:50%" alt="Immagine ${image.id}">
+                            <div class="card text-center">
+                                <img src="@image.ImageSrc" class="card-img-top" alt="...">
                                 <div id="card_` + image.id + `" class="card-body">
                                     <h5 class="card-title">@image.Title</h5>
                                     <p class="card-text">>@image.Description</p>
@@ -94,16 +97,16 @@
 
 
                 <!-- TABELLA -->
-                <div class="d-flex" style="justify-content: center">
-                    <h2 style="color: white">Resoconto delle Foto presenti in Galleria</h2>
+                <div class="ms_table">
+                    <h2>Resoconto delle Foto presenti in Galleria</h2>
                 </div>
 
-                <div class=" text-center mt-4 mb-4 W">
+                <div class="text-center mt-4 mb-4 W">
                     <a class=" btn btn-success " href="@Url.Action("Create", "Image")">Crea nuova Foto</a>
                 </div>
 
                 <div class="p-3">
-                    <table class="table" style="color: white">
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -156,7 +159,6 @@
                     </table>
                 </div>
             </div>
-        </div>
     </main>
 
 </div>
