@@ -4,45 +4,13 @@
 }
 @model List<Image>
 
-<div class="container">
-
-    <div class="row">
-        <div class="col-12">
-            <h1>Lista delle foto</h1>
-            <div>
-                <input id="js_search_box" type="text" class="form-control my-3" placeholder="Cerca per titolo...">
-            </div>
-        </div>
-    </div>
-
-    <div id="loading-spinner" class="row">
-        <div class="col-12">
-            <div class="spinner-border" role="status"></div>
-            <span class="visually-hidden">Sto cercando le foto... </span>
-        </div>
-    </div>
-
-    <div id="row-no-images" class="row d-none">
-        <div class="col-12">
-            <h1>Nessuna Pizza trovata</h1>
-        </div>
-    </div>
-
-
-
-    <div id="list-of-images" class="row d-none">
-        <div class="col-12">
-        </div>
-    </div>
-
-</div>
 
 <div class="d-flex flex-column" style="height:100%;">
     <main>
         <div class="d-flex container-fluid">
-            <div class="container" style="border-radius: 15px; height: 100%; background-color: #870000; padding: 50px 0 50px 0; justify-content: space-evenly">
+            <div class="container" style="border-radius: 15px; height: 100%; background-color: #01252b; padding: 50px 0 50px 0; justify-content: space-evenly">
 
-
+                <h1 class="text-center text-white"><strong>Galleria</strong></h1>
                 <!--CAROSELLO-->
                 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false" style="height: 500px; margin-bottom:20px">
                     <div class="carousel-indicators">
@@ -91,30 +59,32 @@
 
 
                 <!-- CARTE -->
-                <div class="d-flex flex-wrap" style="justify-content: space-evenly;">
+                <div class="d-flex flex-wrap col-12" style="justify-content: space-evenly;">
                     @foreach (Image image in Model)
                     {
-                        <div class="card" style="width: 18rem; margin-bottom:20px;">
-                            <img src="@image.ImageSrc" class="card-img-top" alt="..." style="height:180px">
-                            <div class="card-body">
-                                <h5 class="card-title">@image.Title</h5>
-                                <p class="card-text">@image.Description</p>
-                            </div>
-                            <hr>
-                            <div class="card-body">
-                                <ul>
-                                    @if (image.Categories == null)
-                                    {
-                                        <li><p>Nessuna categoria selezionata</p></li>
-                                    }
-                                    else
-                                    {
-                                        foreach (Category category in image.Categories)
+                        <div class="col-12 col-md-4 p-2">
+                            <div class="card text-center" style="height:450px">
+                                <img src="@image.ImageSrc" class="card-img-top" style="height:50%" alt="Immagine ${image.id}">
+                                <div id="card_` + image.id + `" class="card-body">
+                                    <h5 class="card-title">@image.Title</h5>
+                                    <p class="card-text">>@image.Description</p>
+                                    <div class="card-text d-flex">
+                                        @if (image.Categories == null)
                                         {
-                                            <li><p>@category?.Name</p></li>
+                                            <p>Nessuna categoria selezionata</p>
                                         }
-                                    }
-                                </ul>
+                                        else
+                                        {
+                                            foreach (Category category in image.Categories)
+                                            {
+                                                <p>@category?.Name</p>
+
+                                                <p> - </p>
+                                            }
+                                        }
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     }

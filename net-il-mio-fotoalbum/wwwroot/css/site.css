@@ -13,6 +13,13 @@ html {
   min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
+header {
+    background-color: #bd3f57;
+    color: white;
+    padding: 5%, 20%;
+    justify-content: space-around;
+}
+
+header ul li a {
+    color:white;
 }

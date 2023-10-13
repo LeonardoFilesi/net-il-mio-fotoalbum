@@ -3,21 +3,23 @@
 }
 @model Image
 
-<div class="container detailpizza text-center">
+<div class="container d-flex flex-column">
 
-    <div class="title mt-4 w-50"><h1 class="mt-3 mb-3">DETTAGLI DI: @Model.Title</h1></div>
+    <div class="title mt-4 w-50" style="margin:0 auto">
+        <h1 class="mt-3 mb-3">DETTAGLI DI: @Model.Title</h1>
+    </div>
 
 
-    <div class="singleimage text-center mt-4">
+    <div class="singleimager mt-4" style="margin:0 auto">
         <img width="500" src="@Model.ImageSrc">
     </div>
 
-    <div class="title text-center w-25 mt-4 mb-4">
+    <div class="title w-25 mt-4 mb-4" style="margin:0 auto">
 
-        <p>DESCRIZIONE: @Model.Description</p>
+        <p style="margin:0 auto"><strong>DESCRIZIONE:</strong> @Model.Description</p>
 
         <p>
-            <sp>CATEGORIE:</sp>
+            <sp><strong>CATEGORIE:</strong></sp>
             @if (Model.Categories != null && Model.Categories.Count > 0)
                 {
                 <ul>
