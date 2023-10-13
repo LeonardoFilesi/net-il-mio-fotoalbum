@@ -251,5 +251,23 @@ namespace net_il_mio_fotoalbum.Controllers
             }
 
         }
+
+
+
+        //========FILTRO ADMIN INDEX=============
+        public IActionResult Filter(string userSearch)
+        {
+            List<Image> images;
+
+            if (!string.IsNullOrEmpty(userSearch))
+            {
+                images = _myDatabase.Images.Where(image => image.Title.Contains(userSearch)).Include(image => image.Categories).ToList();
+            }
+            else
+            {
+                images = _myDatabase.Images.Include(image => image.Categories).ToList();
+            }
+            return View("Index", images);
+        }
     }
 }
