@@ -58,7 +58,7 @@
                         @foreach (Image image in Model)
                         {
                             <div class="carousel-item @(isFirstItem ? "active" : "")">
-                                <img src="@image.Img" class="d-block w-100" alt="..." style="height: 500px;">
+                                <img src="@image.ImageSrc" class="d-block w-100" alt="..." style="height: 500px;">
                                 <div class="carousel-caption d-none d-md-block" style="border-radius: 10px; background-color:rgb(16 21 31 / 62%);">
                                     <h5>Image: @image.Title</h5>
                                     @if (image.Categories == null)
@@ -95,7 +95,7 @@
                     @foreach (Image image in Model)
                     {
                         <div class="card" style="width: 18rem; margin-bottom:20px;">
-                            <img src="@image.Img" class="card-img-top" alt="..." style="height:180px">
+                            <img src="@image.ImageSrc" class="card-img-top" alt="..." style="height:180px">
                             <div class="card-body">
                                 <h5 class="card-title">@image.Title</h5>
                                 <p class="card-text">@image.Description</p>

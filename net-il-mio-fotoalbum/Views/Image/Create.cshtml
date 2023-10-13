@@ -10,7 +10,9 @@
             <h1>Crea una nuova Foto da aggiungere</h1>
         </div>
 
-        <form asp-controller="Image" asp-action="Create" method="post">
+        <form asp-controller="Image" asp-action="Create" method="post" enctype="multipart/form-data">
+            <!-- enctype="multipart/form-data" DA AGGIUNGERE SEMPRE per ^^^^^^^^^^^^^^^^^^^^^ poter fare upload di files ed evitare  che vengano ignorati -->
+
 
             @Html.AntiForgeryToken()         <!--DA METTERE SEMPRE PER LA SICUREZZA DEL CODICE-->
 
@@ -42,8 +44,15 @@
             <!--IMMAGINE-->
             <div class="mb-3">
                 <strong>URL Immagine:</strong>
-                <input type="text" class="form-control" asp-for="Image.Img">
-                <span asp-validation-for="Image.Img" class="text-danger"></span>
+                <input type="text" class="form-control" asp-for="Image.ImgUrl">
+                <span asp-validation-for="Image.ImgUrl" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <strong>Upload Immagine:</strong>
+                <label asp-for="ImageFormFile">Image file</label>
+                <input type="file" asp-for="ImageFormFile" />
+                <span asp-validation-for="ImageFormFile" class="text-error"></span>
             </div>
 
             <!-- FINALMENTE VREA E AGGIUNGI -->

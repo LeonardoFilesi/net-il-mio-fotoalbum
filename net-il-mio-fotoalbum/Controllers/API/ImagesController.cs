@@ -18,7 +18,7 @@ namespace net_il_mio_fotoalbum.Controllers.API
 
 
 
-        //===========GET ALL IMAGES===============
+        //=========== GET ALL IMAGES ===============
         [HttpGet]
         public IActionResult GetImages()
         {
@@ -32,7 +32,7 @@ namespace net_il_mio_fotoalbum.Controllers.API
 
 
 
-        //===============SEARCHBYNAME================
+        //=============== SEARCH BY NAME ================
         [HttpGet]
         public IActionResult SearchImages(string? search)
         {
@@ -44,7 +44,7 @@ namespace net_il_mio_fotoalbum.Controllers.API
 
             using (ImageContext db = new ImageContext())
             {
-                List<Image> foundedImages = db.Images.Where(image => image.Title.ToLower().Contains(search.ToLower())).ToList();
+                List<Image> foundedImages = db.Images.Where(image => image.Title.ToLower().Contains(search.ToLower())).Include(image => image.Categories).ToList();
                 return Ok(foundedImages);
             }
         }

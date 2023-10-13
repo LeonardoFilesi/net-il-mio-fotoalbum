@@ -9,7 +9,7 @@
 
 
     <div class="singleimage text-center mt-4">
-        <img width="500" src="@Model.Img">
+        <img width="500" src="@Model.ImageSrc">
     </div>
 
     <div class="title text-center w-25 mt-4 mb-4">
@@ -17,7 +17,7 @@
         <p>DESCRIZIONE: @Model.Description</p>
 
         <p>
-            <sp>INGREDIENTI:</sp>
+            <sp>CATEGORIE:</sp>
             @if (Model.Categories != null && Model.Categories.Count > 0)
                 {
                 <ul>

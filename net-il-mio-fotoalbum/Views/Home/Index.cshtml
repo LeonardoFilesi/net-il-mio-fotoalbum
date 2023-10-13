@@ -4,39 +4,6 @@
 }
 @model List<Image>
 
-<div class="container">
-
-    <div class="row">
-        <div class="col-12">
-            <h1>Lista delle foto</h1>
-            <div>
-                <input id="js_search_box" type="text" class="form-control my-3" placeholder="Cerca per titolo...">
-            </div>
-        </div>
-    </div>
-
-    <div id="loading-spinner" class="row">
-        <div class="col-12">
-            <div class="spinner-border" role="status"></div>
-            <span class="visually-hidden">Sto cercando le foto... </span>
-        </div>
-    </div>
-
-    <div id="row-no-images" class="row d-none">
-        <div class="col-12">
-            <h1>Nessuna Pizza trovata</h1>
-        </div>
-    </div>
-
-
-
-    <div id="list-of-images" class="row d-none">
-        <div class="col-12">
-        </div>
-    </div>
-
-</div>
-
 <div class="d-flex flex-column" style="height:100%;">
     <main>
         <div class="d-flex container-fluid">
@@ -58,7 +25,7 @@
                         @foreach (Image image in Model)
                         {
                             <div class="carousel-item @(isFirstItem ? "active" : "")">
-                                <img src="@image.Img" class="d-block w-100" alt="..." style="height: 500px;">
+                                <img src="@image.ImageSrc" class="d-block w-100" alt="..." style="height: 500px;">
                                 <div class="carousel-caption d-none d-md-block" style="border-radius: 10px; background-color:rgb(16 21 31 / 62%);">
                                     <h5>Image: @image.Title</h5>
                                     @if (image.Categories == null)
@@ -88,41 +55,61 @@
                     </button>
                 </div>
 
+                <div class="container">
 
-
-                <!-- CARTE -->
-                <div class="d-flex flex-wrap" style="justify-content: space-evenly;">
-                    @foreach (Image image in Model)
-                    {
-                        <div class="card" style="width: 18rem; margin-bottom:20px;">
-                            <img src="@image.Img" class="card-img-top" alt="..." style="height:180px">
-                            <div class="card-body">
-                                <h5 class="card-title">@image.Title</h5>
-                                <p class="card-text">@image.Description</p>
-                            </div>
-                            <hr>
-                            <div class="card-body">
-                                <ul>
-                                    @if (image.Categories == null)
-                                    {
-                                        <li><p>Nessuna categoria selezionata</p></li>
-                                    }
-                                    else
-                                    {
-                                        foreach (Category category in image.Categories)
-                                        {
-                                            <li><p>@category?.Name</p></li>
-                                        }
-                                    }
-                                    <li>
-                                        <a class="btn btn-danger" href="@Url.Action("Details", "Image", new { id = image.Id })" title="image details">DETAILS</a>
-                                    </li>
-                                </ul>
+                    <div class="row">
+                        <div class="col-12 text-white">
+                            <h1>Lista delle foto</h1>
+                            <div>
+                                <input id="js_search_box" type="text" class="form-control my-3" placeholder="Cerca per titolo...">
                             </div>
                         </div>
-                    }
+                    </div>
+
+                    <div id="loading-spinner" class="row">
+                        <div class="col-12">
+                            <div class="spinner-border" role="status"></div>
+                            <span class="visually-hidden">Sto cercando le foto... </span>
+                        </div>
+                    </div>
+
+                    <div id="row-no-images" class="row d-none">
+                        <div class="col-12">
+                            <h1>Nessuna Foto trovata</h1>
+                        </div>
+                    </div>
+
+
+
+                    <div id="list-of-images" class="row d-none">
+                        <div class="col-12">
+                        </div>
+                    </div>
+
+                </div>
+
+                <hr class="text-white">
+
+                <div class=" container mt-4">
+
+                    <h2>CONTACT US:</h2>
+
+                    <form id="FormContent">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea class="form-control" id="message" name="message"></textarea>
+                        </div>
+                        <button type="button" class="btn btn-primary mt-4 mb-4" onclick="sendMessage()">SEND</button>
+                    </form>
+
                 </div>
             </div>
+
+
         </div>
     </main>
 
@@ -150,3 +137,105 @@
         });
     });
 </script>
+
+
+
+<!--SCRIPT API-->
+@section Scripts 
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.1/axios.min.js" integrity="sha512-emSwuKiMyYedRwflbZB2ghzX8Cw8fmNVgZ6yQNNXXagFzFOaQmbvQ1vmDkddHjm5AITcBIZfC7k4ShQSjgPAmQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript">
+
+        loadAllImage();
+
+        document.getElementById("js_search_box").addEventListener('keyup', searchImages);
+
+        function searchImages() 
+        {
+            let searchString = document.getElementById("js_search_box").value;
+
+            loadAllImage(searchString);
+        }
+
+
+        function loadAllImage(searchParam) {
+            axios.get('/api/Images/SearchImages', { params: {search: searchParam}}).then((res)=>
+            {
+                console.log(res);
+
+                var divNoImages = document.getElementById("div-no-images");
+                var loadingSpinnerElement = document.getElementById("loading-spinner");
+                var listOfImagesElement = document.getElementById("list-of-images");
+
+                if(res.data.length == 0) 
+                {
+                    divNoImages.classList.Remove("d-none");
+                    loadingSpinnerElement.classList.Add("d-none");
+                } 
+                else 
+                {
+                    loadingSpinnerElement.classList.add("d-none");
+                    listOfImagesElement.classList.remove("d-none");
+
+                    listOfImagesElement.innerHTML = "";
+
+                    res.data.forEach(image => {
+                        console.log("image");
+
+                        listOfImagesElement.innerHTML +=
+                            `
+                                  <div class="col-12 col-md-4 p-2" id="${image.id}">
+                                      <div class="card text-center" style="height:450px">
+                                             <img src="${image.imageSrc}" class="card-img-top" style="height:250px" alt="Immagine ${image.id}">
+                                             <div id="card_` + image.id + `" class="card-body">
+                                                   <h5 class="card-title">${image.title}</h5>
+                                                   <p class="card-text">${image.description}</p>
+                                                   <p class="card-text">${image.categories.map(category => category.name).join(", ")}</p>
+                                             </div>
+                                       </div>
+                                  </div>
+                            `;
+                       // const btn = document.createElement("button");
+                       // btn.type = "button";
+                       // btn.classList.add("btn", "btn-danger");
+                       // btn.innerHTML = "Delete";
+                       // btn.setAttribute("data-image-id", image.id);
+                       // btn.setAttribute("id", image.id);
+                       // btn.onclick = function () { deleteImage(image.id); };
+                       // document.getElementById("card_" + image.id).appendChild(btn);
+                    });
+                }
+            })
+        }
+
+        function sendMessage() {
+            let email = document.getElementById('email').value;
+            let message = document.getElementById('message').value;
+
+            if (!email || !message) {
+                alert('Inserisci email e messaggio');
+                return;
+            }
+
+            let apiUrl = `/api/FormContents/StoreMessage`;
+
+            const jsonData = {
+                email: email,
+                message: message,
+            };
+
+            axios.post(apiUrl, jsonData)
+                .then(function (response) {
+                    console.log(response.data);
+                    alert('Messaggio inviato con successo!!!');
+
+                    document.getElementById('email').value = '';
+                    document.getElementById('message').value = '';
+                })
+                .catch(function (error) {
+                    alert('Errore, messaggio non inviato');
+                    console.error(error);
+                });
+        }
+    </script>
+}

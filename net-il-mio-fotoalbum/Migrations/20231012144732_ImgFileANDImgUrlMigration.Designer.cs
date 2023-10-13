@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using net_il_mio_fotoalbum.Database;
 
@@ -11,9 +12,11 @@ using net_il_mio_fotoalbum.Database;
 namespace net_il_mio_fotoalbum.Migrations
 {
     [DbContext(typeof(ImageContext))]
-    partial class ImageContextModelSnapshot : ModelSnapshot
+    [Migration("20231012144732_ImgFileANDImgUrlMigration")]
+    partial class ImgFileANDImgUrlMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -287,6 +290,7 @@ namespace net_il_mio_fotoalbum.Migrations
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("ImgUrl")
+                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 

@@ -22,10 +22,19 @@ namespace net_il_mio_fotoalbum.Models
 
 
 
-        // IMMAGINE
+        // IMMAGINE URL
         [Url(ErrorMessage = "Devi inserire un link valido per l'immagine della Pizza")] // aggiunta per la VALIDAZIONE
         [MaxLength(500, ErrorMessage = "Il link non può essere più lungo di 500 caratteri")] // aggiunta per la VALIDAZIONE
-        public string Img { get; set; }
+        public string? ImgUrl { get; set; }
+
+
+
+        // IMMAGINE FILE
+        public byte[]? ImgFile { get; set; }
+
+        public string ImageSrc =>
+            ImgFile is null ? (ImgUrl is null ? "" : ImgUrl) : $"data:image/png;base64,{Convert.ToBase64String(ImgFile)}";
+
 
 
 
@@ -35,11 +44,12 @@ namespace net_il_mio_fotoalbum.Models
 
 
         //======================================COSTRUTTORE========================================
-        public Image(string title, string description, string img) 
+        public Image(string title, string description, string imgUrl, byte[] imgFile) 
         {
             this.Title = title;
             this.Description = description;
-            this.Img = img;
+            this.ImgUrl = imgUrl;
+            this.ImgFile = imgFile;
         }
         public Image() { }  // SEMPRE aggiungere costruttore VUOTO
     }

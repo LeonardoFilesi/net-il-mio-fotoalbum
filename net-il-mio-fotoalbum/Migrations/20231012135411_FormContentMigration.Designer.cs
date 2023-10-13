@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using net_il_mio_fotoalbum.Database;
 
@@ -11,9 +12,11 @@ using net_il_mio_fotoalbum.Database;
 namespace net_il_mio_fotoalbum.Migrations
 {
     [DbContext(typeof(ImageContext))]
-    partial class ImageContextModelSnapshot : ModelSnapshot
+    [Migration("20231012135411_FormContentMigration")]
+    partial class FormContentMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -261,9 +264,11 @@ namespace net_il_mio_fotoalbum.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Message")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -283,10 +288,8 @@ namespace net_il_mio_fotoalbum.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<byte[]>("ImgFile")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("ImgUrl")
+                    b.Property<string>("Img")
+                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 

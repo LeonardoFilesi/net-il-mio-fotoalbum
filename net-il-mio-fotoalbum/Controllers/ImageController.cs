@@ -109,6 +109,7 @@ namespace net_il_mio_fotoalbum.Controllers
                 }
             }
 
+            SetImageFileFromFormFile(data);
             _myDatabase.Images.Add(data.Image);
             _myDatabase.SaveChanges();
             return RedirectToAction("Index");
@@ -191,6 +192,9 @@ namespace net_il_mio_fotoalbum.Controllers
                         }
                     }
                 }
+
+                SetImageFileFromFormFile(data);
+
                 entryEntity.CurrentValues.SetValues(data.Image);
 
                 _myDatabase.SaveChanges();
@@ -201,6 +205,25 @@ namespace net_il_mio_fotoalbum.Controllers
             {
                 return NotFound("Mi spiace, non sono state trovate Foto da aggiornare");
             }
+        }
+
+
+
+        /// <summary>
+        /// PRENDERE contenuto delle immagini di ImageFormData e trasferirlo in ImgFile
+        /// </summary>
+        /// <param name="formData"></param>
+        private void SetImageFileFromFormFile(ImageFormModel formData)
+        {
+            if (formData.ImageFormFile == null)
+            {
+                return;
+            }
+
+            MemoryStream stream = new MemoryStream();
+            formData.ImageFormFile.CopyTo(stream);
+            formData.Image.ImgFile = stream.ToArray();
+
         }
 
 
