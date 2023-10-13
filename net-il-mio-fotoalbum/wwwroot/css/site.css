@@ -13,13 +13,37 @@ html {
   min-height: 100%;
 }
 
+
+
+footer {
+    display:flex;
+}
+footer .container-fluid {
+    background-color: #bd3f57;
+    justify-content: space-around;
+    color: white;
+    padding: 5%;
+}
+    footer ul {
+        justify-content: center;
+        flex-direction: column;
+    }
+
+
+
+
 header {
     background-color: #bd3f57;
     color: white;
     padding: 5%, 20%;
     justify-content: space-around;
 }
-
-header ul li a {
+header .navbar-brand {
     color:white;
 }
+header .nav-link {
+    color:white;
+}
+
+
+
